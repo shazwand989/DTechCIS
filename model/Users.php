@@ -29,6 +29,26 @@ class Users extends Database
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getUserByEmail($email)
+    {
+        $conditions = "user_email = :user_email";
+        $sql = "SELECT * FROM users WHERE $conditions";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':user_email', $email);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getUserByUsername($username)
+    {
+        $conditions = "user_username = :user_name";
+        $sql = "SELECT * FROM `users` WHERE $conditions";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':user_name', $username);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function updateUser($userId, $data)
     {
         if (isset($data['user_password'])) {

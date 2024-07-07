@@ -13,6 +13,19 @@ function redirect($url)
     die();
 }
 
+function auth($role = null)
+{
+    if (!isset($_SESSION['user'])) {
+        set_flash_message('You must be logged in to view that page', 'danger');
+        redirect(base_url('login.php'));
+    }
+
+    if ($role && $_SESSION['user']['role'] != $role) {
+        set_flash_message('You are not authorized to view that page', 'danger');
+        redirect(base_url('index.php'));
+    }
+}
+
 function alert($text, $type)
 {
     $msg = "<div class='alert alert-" . $type . " alert-dismissible fade show' role='alert'>

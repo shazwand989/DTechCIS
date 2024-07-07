@@ -9,7 +9,7 @@ define('DB_PASSWORD', '');
 define('DB_DATABASE', 'db_DTechCIS');
 
 // SITE URL
-define('SITE_URL', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/');
+define('SITE_URL', 'http://localhost:8080/');
 
 // SITE NAME
 define('SITE_NAME', 'Digital Technology Center Of Information System (DTechCIS)');
