@@ -2,6 +2,9 @@
 // START SESSION
 session_start();
 
+// Malaysia Timezone
+date_default_timezone_set('Asia/Kuala_Lumpur');
+
 // DATABASE CREDINTIALS
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');

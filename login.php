@@ -1,38 +1,58 @@
-<?php require_once 'config/db.php'; ?>
+<?php require_once 'config/db.php'; ?> <!-- Include the database configuration file -->
 <?php
+// Create a new instance of the Users class
 $users = new Users();
+
+// Initialize an empty array to hold error messages
 $errors = [];
+
+// Check if the request method is POST (i.e., form submission)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve the username and password from the POST request
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // Check if the username is empty and add an error message if it is
     if (empty($username)) {
         $errors['username'] = 'Username is required';
     }
 
+    // Check if the password is empty and add an error message if it is
     if (empty($password)) {
         $errors['password'] = 'Password is required';
     }
 
+    // If there are no errors, proceed with user authentication
     if (empty($errors)) {
+        // Get the user details from the database using the provided username
         $user = $users->getUserByUsername($username);
+
+        // Check if the user exists, the password is correct, the user role is admin, and the user status is active
         if ($user && password_verify($password, $user['user_password']) && $user['user_role'] == 'admin' && $user['user_status'] == '1') {
+            // Store user information in the session
             $_SESSION['user'] = $user;
+
+            // Check if the "remember me" option was selected
             if (isset($_POST['remember'])) {
+                // Set cookies to remember the user for 30 days
                 setcookie('user_id', $user['user_id'], time() + (86400 * 30), '/');
                 setcookie('user_username', $user['user_username'], time() + (86400 * 30), '/');
                 setcookie('user_password', $password, time() + (86400 * 30), '/');
             } else {
+                // Clear the cookies if "remember me" was not selected
                 setcookie('user_id', '', time() - 3600, '/');
                 setcookie('user_username', '', time() - 3600, '/');
                 setcookie('user_password', '', time() - 3600, '/');
             }
+            // Redirect to the admin index page
             redirect(base_url('admin/index.php'));
         } else {
+            // Set a flash message indicating invalid username or password
             set_flash_message('Invalid username or password', 'danger');
         }
     }
 }
+
 ?>
 <!doctype html>
 <html lang="en">
