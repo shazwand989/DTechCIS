@@ -20,9 +20,11 @@ function auth($role = null)
         redirect(base_url('login.php')); // Redirects the user to the login page.
     }
 
-    if ($role && $_SESSION['user']['role'] != $role) { // Checks if the user role does not match the required role.
+    if ($role && $_SESSION['user']['user_role'] != $role) { // Checks if the user role does not match the required role.
         set_flash_message('You are not authorized to view that page', 'danger'); // Sets a flash message to inform the user.
         redirect(base_url('index.php')); // Redirects the user to the homepage.
+    } else {
+        return true;
     }
 }
 

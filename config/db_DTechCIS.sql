@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `user_password` varchar(255) NOT NULL,
     `user_role` enum('admin', 'cot_officer', 'pkt_management') NOT NULL,
     `user_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
-    `user_profile_picture` varchar(255) DEFAULT NULL,
+    `user_profile_picture` varchar(255) DEFAULT 'default.png',
     `user_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `user_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `user_deleted_at` datetime DEFAULT NULL,

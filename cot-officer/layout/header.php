@@ -1,5 +1,5 @@
 <?php require_once '../config/db.php'; ?>
-<?php auth('admin'); ?>
+<?php auth('cot_officer'); ?>
 <!DOCTYPE html>
 <html lang="en">
 

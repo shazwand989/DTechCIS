@@ -1,4 +1,5 @@
-<?php require_once 'config/db.php'; ?> <!-- Include the database configuration file -->
+<?php require_once 'config/db.php'; ?>
+<!-- Include the database configuration file -->
 <?php
 // Create a new instance of the Users class
 $users = new Users();
@@ -26,17 +27,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)) {
         // Get the user details from the database using the provided username
         $user = $users->getUserByUsername($username);
+        $email = $users->getUserByEmail($username);
 
         // Check if the user exists, the password is correct, the user role is admin, and the user status is active
-        if ($user && password_verify($password, $user['user_password']) && $user['user_role'] == 'admin' && $user['user_status'] == '1') {
+        if (($user && password_verify($password, $user['user_password']) && $user['user_status'] == '1') || ($email && password_verify($password, $email['user_password']) && $email['user_status'] == '1')) {
             // Store user information in the session
-            $_SESSION['user'] = $user;
+            if ($user) {
+                $_SESSION['user'] = $user;
+            } else {
+                $_SESSION['user'] = $email;
+            }
 
             // Check if the "remember me" option was selected
             if (isset($_POST['remember'])) {
                 // Set cookies to remember the user for 30 days
-                setcookie('user_id', $user['user_id'], time() + (86400 * 30), '/');
-                setcookie('user_username', $user['user_username'], time() + (86400 * 30), '/');
+                setcookie('user_id', $user['user_id'] ?? $email['user_id'], time() + (86400 * 30), '/');
+                setcookie('user_username', $user['user_username'] ?? $email['user_email'], time() + (86400 * 30), '/');
                 setcookie('user_password', $password, time() + (86400 * 30), '/');
             } else {
                 // Clear the cookies if "remember me" was not selected
@@ -44,8 +50,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 setcookie('user_username', '', time() - 3600, '/');
                 setcookie('user_password', '', time() - 3600, '/');
             }
-            // Redirect to the admin index page
-            redirect(base_url('admin/index.php'));
+            if ($_SESSION['user']['user_role'] == 'admin') {
+                // Redirect to the admin index page
+                redirect(base_url('admin/index.php'));
+            } else if ($_SESSION['user']['user_role'] == 'cot_officer') {
+                // Redirect to the cot officer index page
+                redirect(base_url('cot-officer/index.php'));
+            } else if ($_SESSION['user']['user_role'] == 'pkt_management') {
+                // Redirect to the pkt management index page
+                redirect(base_url('pkt-management/index.php'));
+            }
         } else {
             // Set a flash message indicating invalid username or password
             set_flash_message('Invalid username or password', 'danger');

@@ -19,14 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = []; // Initialize an array to store error messages
 
     // Sanitize and validate user inputs
-    $user_name = filter_var($_POST['user_name'], FILTER_SANITIZE_STRING);
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $phone = filter_var($_POST['phone'], FILTER_SANITIZE_STRING);
-    $address = filter_var($_POST['address'], FILTER_SANITIZE_STRING);
-    $city = filter_var($_POST['city'], FILTER_SANITIZE_STRING);
-    $state = filter_var($_POST['state'], FILTER_SANITIZE_STRING);
-    $postcode = filter_var($_POST['postcode'], FILTER_SANITIZE_STRING);
-    $role = filter_var($_GET['role'], FILTER_SANITIZE_STRING);
+    $user_name = $conn->real_escape_string($_POST['user_name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $phone = $conn->real_escape_string($_POST['phone']);
+    $address = $conn->real_escape_string($_POST['address']);
+    $city = $conn->real_escape_string($_POST['city']);
+    $state = $conn->real_escape_string($_POST['state']);
+    $postcode = $conn->real_escape_string($_POST['postcode']);
 
     $password = $_POST['password'];
 
@@ -84,8 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (count($passwordErrors) > 0) {
             $errors['password'] = '<ul><li>' . implode('</li><li>', $passwordErrors) . '</li></ul>';
         }
-    } else {
-        $password = 'password'; // Placeholder password for validation purposes
     }
 
     // If there are no errors, proceed with user creation/updation
@@ -122,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_GET['id'])) {
             $result = $users->updateUser($_GET['id'], $data);
         } else {
+            $data['user_password'] = password_hash('password', PASSWORD_DEFAULT); // Set default password 'password
             $result = $users->createUser($data);
         }
 
