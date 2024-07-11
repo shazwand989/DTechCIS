@@ -62,15 +62,6 @@
                          </li>
                      </ul>
                  </li>
-                 <!-- categories -->
-                 <li class="nav-item">
-                     <a href="category-list.php" class="nav-link <?= $title == "Categories" ? "active" : "" ?>">
-                         <i class="nav-icon fas fa-list"></i>
-                         <p>
-                             Categories
-                         </p>
-                     </a>
-                 </li>
                  <!-- account -->
                  <li class="nav-item">
                      <a href="account.php?action=profile" class="nav-link <?= $title == "Account" ? "active" : "" ?>">
