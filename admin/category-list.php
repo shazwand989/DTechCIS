@@ -1,5 +1,6 @@
 <?php $title = "Categories"; ?>
 <?php include_once "layout/header.php"; ?>
+<?php $categories = new Categories(); ?>
 <div class="content-wrapper">
 
     <div class="content-header">
@@ -44,15 +45,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach (categories() as $key => $category) : ?>
+                                        <?php foreach ($categories->getCategories() as $key => $category) : ?>
                                             <tr>
                                                 <td><?= $key + 1 ?></td>
-                                                <td><?= $category['name'] ?></td>
+                                                <td><?= $category['category_name'] ?></td>
                                                 <td style="width: 15%" class="text-center">
                                                     <!-- DETAIL -->
-                                                    <a href="category-detail.php?id=<?= $category['id'] ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Detail</a>
-                                                    <!-- <a href="#category-form.php?id=<?= $category['id'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a> -->
-                                                    <!-- <a href="#category-delete.php?id=<?= $category['id'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a> -->
+                                                    <a href="category-detail.php?id=<?= $category['category_id'] ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Detail</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -62,3 +62,20 @@ function previewImage(input, previewId) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+function categorySubEdit(id, name) {
+    if (id == 0) {
+        $('#modal-title').text('Add');
+        $('#category_sub_id').val(0);
+        $('#sub_category_name').val('');
+    } else {
+        $('#modal-title').text('Edit');
+        $('#category_sub_id').val(id);
+        $('#sub_category_name').val(name);
+    }
+    $('#modal-category-sub').modal('show');
+}
+
+function goBack() {
+    window.history.back();
+}

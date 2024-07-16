@@ -53,3 +53,51 @@ CREATE TABLE IF NOT EXISTS `forgot_password` (
     PRIMARY KEY (`forgot_password_id`),
     FOREIGN KEY (`forgot_password_user_id`) REFERENCES `users`(`user_id`)
 );
+
+CREATE TABLE IF NOT EXISTS `categories` (
+    `category_id` int(11) NOT NULL AUTO_INCREMENT,
+    `category_name` varchar(255) NOT NULL,
+    `category_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `category_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`category_id`)
+);
+
+INSERT
+    IGNORE INTO `categories` (
+        `category_id`,
+        `category_name`
+    )
+VALUES
+    (1, 'Collaboration'),
+    (2, 'Research and Innovation'),
+    (3, 'Expert service'),
+    (4, 'Teaching and Learning'),
+    (5, 'Publication'),
+    (6, 'Recognition'),
+    (7, 'Income generation');
+
+-- categories sub for folder for categories 
+CREATE TABLE IF NOT EXISTS `categories_sub` (
+    `category_sub_id` int(11) NOT NULL AUTO_INCREMENT,
+    `category_sub_name` varchar(255) NOT NULL,
+    `category_sub_category_id` int(11) NOT NULL,
+    `category_sub_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `category_sub_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`category_sub_id`),
+    FOREIGN KEY (`category_sub_category_id`) REFERENCES `categories`(`category_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `documents` (
+    `document_id` int(11) NOT NULL AUTO_INCREMENT,
+    `document_title` varchar(255) NOT NULL,
+    `document_description` text NOT NULL,
+    `document_date` date NOT NULL,
+    `document_file` varchar(255) NOT NULL,
+    `document_user_id` int(11) NOT NULL,
+    `document_category_sub_id` int(11) NOT NULL,
+    `document_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `document_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`document_id`),
+    FOREIGN KEY (`document_user_id`) REFERENCES `users`(`user_id`),
+    FOREIGN KEY (`document_category_sub_id`) REFERENCES `categories_sub`(`category_sub_id`)
+);

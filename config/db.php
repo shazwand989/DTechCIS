@@ -12,7 +12,10 @@ define('DB_PASSWORD', '');
 define('DB_DATABASE', 'db_DTechCIS');
 
 // SITE URL
-define('SITE_URL', 'http://localhost:8080/');
+define('SITE_URL', 'http://dtechcis.test/');
+
+// Whatsapp Token 
+define('WHATSAPP_TOKEN', 'Xc8SpRNriemeeJe-Kutk');
 
 // SITE NAME
 define('SITE_NAME', 'Digital Technology Center Of Information System (DTechCIS)');

@@ -150,17 +150,37 @@ function states()
     ]; // Returns an array of state names.
 }
 
-function categories()
+function send_whatsapp($target, $message, $countryCode = '60')
 {
-    $categories = [
-        ['id' => 1, 'name' => 'Collaboration'],
-        ['id' => 2, 'name' => 'Research and Innovation'],
-        ['id' => 3, 'name' => 'Expert service'],
-        ['id' => 4, 'name' => 'Teaching and Learning'],
-        ['id' => 5, 'name' => 'Publication'],
-        ['id' => 6, 'name' => 'Recognition'],
-        ['id' => 7, 'name' => 'Income generation'],
-    ];
+    $curl = curl_init();
 
-    return $categories; // Returns an array of category names.
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.fonnte.com/send',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => array(
+            'target' => $target,
+            'message' => $message,
+            'countryCode' => $countryCode,
+        ),
+        CURLOPT_HTTPHEADER => array(
+            'Authorization:' . WHATSAPP_TOKEN
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    if (curl_errno($curl)) {
+        $error_msg = curl_error($curl);
+    }
+    curl_close($curl);
+
+    if (isset($error_msg)) {
+        return $error_msg;
+    }
+    return $response;
 }

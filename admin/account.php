@@ -181,39 +181,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputCity" class="col-sm-2 col-form-label">City</label>
-                                                    <div class="col-sm-2">
-                                                        <input type="text" class="form-control <?= isset($errors['city']) ? 'is-invalid' : '' ?>" placeholder="City" name="city" value="<?= user()['user_city'] ?? $_POST['city'] ?? '' ?>">
-                                                        <div class="invalid-feedback"><?= $errors['city'] ?? '' ?></div>
-                                                    </div>
-                                                    <label for="inputState" class="col-sm-1 col-form-label">State</label>
-                                                    <div class="col-sm-3">
-                                                        <select class="form-control <?= isset($errors['state']) ? 'is-invalid' : '' ?>" name="state">
-                                                            <option value="">-- Select State --</option>
-                                                            <option value="Johor" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Johor' ? 'selected' : '' ?>>Johor</option>
-                                                            <option value="Kedah" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Kedah' ? 'selected' : '' ?>>Kedah</option>
-                                                            <option value="Kelantan" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Kelantan' ? 'selected' : '' ?>>Kelantan</option>
-                                                            <option value="Kuala Lumpur" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Kuala Lumpur' ? 'selected' : '' ?>>Kuala Lumpur</option>
-                                                            <option value="Labuan" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Labuan' ? 'selected' : '' ?>>Labuan</option>
-                                                            <option value="Melaka" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Melaka' ? 'selected' : '' ?>>Melaka</option>
-                                                            <option value="Negeri Sembilan" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Negeri Sembilan' ? 'selected' : '' ?>>Negeri Sembilan</option>
-                                                            <option value="Pahang" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Pahang' ? 'selected' : '' ?>>Pahang</option>
-                                                            <option value="Perak" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Perak' ? 'selected' : '' ?>>Perak</option>
-                                                            <option value="Perlis" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Perlis' ? 'selected' : '' ?>>Perlis</option>
-                                                            <option value="Pulau Pinang" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Pulau Pinang' ? 'selected' : '' ?>>Pulau Pinang</option>
-                                                            <option value="Putrajaya" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Putrajaya' ? 'selected' : '' ?>>Putrajaya</option>
-                                                            <option value="Sabah" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Sabah' ? 'selected' : '' ?>>Sabah</option>
-                                                            <option value="Sarawak" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Sarawak' ? 'selected' : '' ?>>Sarawak</option>
-                                                            <option value="Selangor" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Selangor' ? 'selected' : '' ?>>Selangor</option>
-                                                            <option value="Terengganu" <?= (user()['user_state'] ?? $_POST['state'] ?? '') == 'Terengganu' ? 'selected' : '' ?>>Terengganu</option>
-                                                        </select>
-                                                        <div class="invalid-feedback"><?= $errors['state'] ?? '' ?></div>
-                                                    </div>
-                                                    <label for="inputPostcode" class="col-sm-1 col-form-label">Postcode</label>
-                                                    <div class="col-sm-3">
+                                                    <label for="inputPostcode" class="col-sm-2 col-form-label">Postcode</label>
+                                                    <div class="col-sm-4">
                                                         <input type="text" class="form-control <?= isset($errors['postcode']) ? 'is-invalid' : '' ?>" placeholder="Postcode" name="postcode" value="<?= user()['user_postcode'] ?? $_POST['postcode'] ?? '' ?>">
                                                         <div class="invalid-feedback"><?= $errors['postcode'] ?? '' ?></div>
                                                     </div>
+                                                    <label for="inputCity" class="col-sm-2 col-form-label">City</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control <?= isset($errors['city']) ? 'is-invalid' : '' ?>" placeholder="City" name="city" value="<?= user()['user_city'] ?? $_POST['city'] ?? '' ?>">
+                                                        <div class="invalid-feedback"><?= $errors['city'] ?? '' ?></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputState" class="col-sm-2 col-form-label">State</label>
+
+                                                    <div class="col-sm-4">
+                                                        <select class="form-control <?= isset($errors['state']) ? 'is-invalid' : '' ?>" name="state">
+                                                            <option value="">-- Select State --</option>
+                                                            <?php foreach (states() as $state) : ?>
+                                                                <option value="<?= $state ?>" <?= (user()['user_state'] ?? $_POST['state']) == $state ? 'selected' : '' ?>><?= $state ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <div class="invalid-feedback"><?= $errors['state'] ?? '' ?></div>
+                                                    </div>
+
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="offset-sm-2 col-sm-10">

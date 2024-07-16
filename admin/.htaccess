@@ -1,0 +1,6 @@
+# Custom Error Pages
+ErrorDocument 400 /admin/400.php
+ErrorDocument 401 /admin/401.php
+ErrorDocument 403 /admin/403.php
+ErrorDocument 404 /admin/404.php
+ErrorDocument 500 /admin/500.php

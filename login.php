@@ -50,6 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 setcookie('user_username', '', time() - 3600, '/');
                 setcookie('user_password', '', time() - 3600, '/');
             }
+            $target = '1116700813';
+            // CREATE WHATSAPP MESSAGE TEMPLATE 
+            $message = 'Hello ' . $user['user_name'] . ', you have successfully logged in to ' . SITE_NAME . ' at ' . date('d F Y, h:i A') . '.';
+            // SEND WHATSAPP MESSAGE
+            $response = send_whatsapp($target, $message);
             if ($_SESSION['user']['user_role'] == 'admin') {
                 // Redirect to the admin index page
                 redirect(base_url('admin/index.php'));
@@ -113,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <form action="" class="signin-form" method="post">
                                 <div class="form-group mb-3">
                                     <label class="label" for="name">Username</label>
-                                    <input type="text" class="form-control <?= isset($errors['username']) ? 'is-invalid' : '' ?>" name="username" placeholder="Username" value="<?= $_POST['username'] ?? $_COOKIE['user_username'] ?? '' ?>">
+                                    <input type="text" class="form-control <?= isset($errors['username']) ? 'is-invalid' : '' ?>" id="username" name="username" placeholder="Username" value="<?= $_POST['username'] ?? $_COOKIE['user_username'] ?? '' ?>">
                                     <div class="invalid-feedback"><?= $errors['username'] ?? '' ?></div>
                                 </div>
                                 <div class="form-group mb-3">
@@ -145,6 +150,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </section>
     <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.min.js') ?>"></script>
+    <script>
+        $(document).ready(function() {
+            $('#username').on('input', function() {
+                this.value = this.value.replace(/\s/g, '').toLowerCase();
+            });
+        });
+    </script>
 </body>
 
 </html>
