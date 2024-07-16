@@ -94,4 +94,68 @@ class Categories extends Database
         $stmt->execute(); // Executes the SQL statement.
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetches the sub categories data as an associative array.
     }
+
+    // CREATE TABLE IF NOT EXISTS `documents` (
+    //     `document_id` int(11) NOT NULL AUTO_INCREMENT,
+    //     `document_title` varchar(255) NOT NULL,
+    //     `document_description` text NOT NULL,
+    //     `document_date` date NOT NULL,
+    //     `document_file` varchar(255) NOT NULL,
+    //     `document_user_id` int(11) NOT NULL,
+    //     `document_category_sub_id` int(11) NOT NULL,
+    //     `document_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    //     `document_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    //     PRIMARY KEY (`document_id`),
+    //     FOREIGN KEY (`document_user_id`) REFERENCES `users`(`user_id`),
+    //     FOREIGN KEY (`document_category_sub_id`) REFERENCES `categories_sub`(`category_sub_id`)
+    // );
+
+    // Method to get all documents from the database.
+    public function getDocuments()
+    {
+        return $this->read('documents'); // Fetches all records from the 'documents' table.
+    }
+
+    // Method to get a document by its ID.
+    public function getDocumentById($documentId)
+    {
+        $conditions = "document_id = :document_id"; // SQL conditions to find a document by ID.
+        $sql = "SELECT * FROM documents WHERE $conditions"; // SQL query to select the document.
+        $stmt = $this->conn->prepare($sql); // Prepares the SQL statement.
+        $stmt->bindParam(':document_id', $documentId); // Binds the document ID parameter.
+        $stmt->execute(); // Executes the SQL statement.
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Fetches the document data as an associative array.
+    }
+
+    // Method to get a document by its Category Sub ID.
+    public function getDocumentsByCategorySubId($categorySubId)
+    {
+        $conditions = "document_category_sub_id = :document_category_sub_id"; // SQL conditions to find documents by Category Sub ID.
+        $sql = "SELECT * FROM documents WHERE $conditions"; // SQL query to select documents by Category Sub ID.
+        $stmt = $this->conn->prepare($sql); // Prepares the SQL statement.
+        $stmt->bindParam(':document_category_sub_id', $categorySubId); // Binds the Category Sub ID parameter.
+        $stmt->execute(); // Executes the SQL statement.
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetches the documents data as an associative array.
+    }
+
+    // Method to create a new document in the database.
+    public function createDocument($data)
+    {
+        return $this->create('documents', $data); // Inserts the document data into the 'documents' table.
+    }
+
+    // Method to update a document in the database.
+    public function updateDocument($id, $data)
+    {
+        $conditions = "document_id = :document_id"; // SQL conditions to find a document by ID.
+        $data['document_id'] = $id; // Adds the document ID to the data array.
+        return $this->update('documents', $data, $conditions); // Updates the document data in the 'documents' table.
+    }
+
+    // Method to delete a document from the database.
+    public function deleteDocument($documentId)
+    {
+        $conditions = "document_id = :document_id"; // SQL conditions to find a document by ID.
+        return $this->delete('documents', $conditions, $documentId); // Deletes the document data from the 'documents' table.
+    }
 }

@@ -3,25 +3,13 @@
 <?php
 $categories = new Categories();
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['category_id']) && isset($_GET['category_sub_id'])) {
+    $id = $_GET['category_id'];
     $category = $categories->getCategoryById($id);
-}
 
-// CREATE TABLE IF NOT EXISTS `documents` (
-//     `document_id` int(11) NOT NULL AUTO_INCREMENT,
-//     `document_title` varchar(255) NOT NULL,
-//     `document_description` text NOT NULL,
-//     `document_date` date NOT NULL,
-//     `document_file` varchar(255) NOT NULL,
-//     `document_user_id` int(11) NOT NULL,
-//     `document_category_sub_id` int(11) NOT NULL,
-//     `document_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-//     `document_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-//     PRIMARY KEY (`document_id`),
-//     FOREIGN KEY (`document_user_id`) REFERENCES `users`(`user_id`),
-//     FOREIGN KEY (`document_category_sub_id`) REFERENCES `categories_sub`(`category_sub_id`)
-// );
+    $subId = $_GET['category_sub_id'];
+    $subCategory = $categories->getSubCategoryById($subId);
+}
 ?>
 <div class="content-wrapper">
     <div class="content-header">
@@ -53,32 +41,59 @@ if (isset($_GET['id'])) {
                                 <?= $title ?> Detail - <?= $category['category_name'] ?>
                             </h4>
                             <div class="card-tools">
-                                <a href="category-list.php" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+                                <!-- dropdown year -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fas fa-calendar-alt"></i> Year
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">2021</a>
+                                        <a class="dropdown-item" href="#">2020</a>
+                                        <a class="dropdown-item" href="#">2019</a>
+                                    </div>
+                                </div>
+                                <a href="category-document-form.php?id=<?= $category['category_id'] ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add Document</a>
                             </div>
                         </div>
                         <div class="card-body">
                             <?= display_flash_message(); ?>
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="document_title">Document Title</label>
-                                    <input type="text" name="document_title" id="document_title" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="document_description">Document Description</label>
-                                    <textarea name="document_description" id="document_description" class="form-control" required></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="document_date">Document Date</label>
-                                    <input type="date" name="document_date" id="document_date" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="document_file">Document File</label>
-                                    <input type="file" name="document_file" id="document_file" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="table-default2">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Date</th>
+                                            <th>File</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($categories->getDocumentsByCategorySubId($subId) as $key => $document) : ?>
+                                            <tr>
+                                                <td><?= $key + 1 ?></td>
+                                                <td><?= $document['document_title'] ?></td>
+                                                <td><?= $document['document_description'] ?></td>
+                                                <td><?= $document['document_date'] ?></td>
+                                                <td>
+                                                    <a href="<?= base_url('uploads/' . $document['document_file']) ?>" target="_blank">
+                                                        <?= $document['document_file'] ?>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="category-document-form.php?id=<?= $category['category_id'] ?>&sub_id=<?= $subCategory['category_sub_id'] ?>&document_id=<?= $document['document_id'] ?>" class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-edit"></i> Edit
+                                                    </a>
+                                                    <a href="category-document-delete.php?id=<?= $document['document_id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this document?')">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
