@@ -149,3 +149,18 @@ function states()
         'Terengganu'
     ]; // Returns an array of state names.
 }
+
+function categories()
+{
+    $categories = [
+        ['id' => 1, 'name' => 'Collaboration'],
+        ['id' => 2, 'name' => 'Research and Innovation'],
+        ['id' => 3, 'name' => 'Expert service'],
+        ['id' => 4, 'name' => 'Teaching and Learning'],
+        ['id' => 5, 'name' => 'Publication'],
+        ['id' => 6, 'name' => 'Recognition'],
+        ['id' => 7, 'name' => 'Income generation'],
+    ];
+
+    return $categories; // Returns an array of category names.
+}

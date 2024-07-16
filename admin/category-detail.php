@@ -23,17 +23,33 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card collapsed-card">
                         <div class="card-header">
                             <h4 class="card-title">
                                 <?= $title ?>
                             </h4>
                             <div class="card-tools">
-                                <!-- <a href="#category-form.php" class="btn btn-primary"><i class="fas fa-plus"></i> Add Category</a> -->
+                                <a href="category-list.php" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="card-body">
                             <?= display_flash_message(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <?= $title ?>
+                            </h4>
+                        </div>
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table id="table-default1" class="table table-bordered table-striped">
                                     <thead>
@@ -49,10 +65,7 @@
                                                 <td><?= $key + 1 ?></td>
                                                 <td><?= $category['name'] ?></td>
                                                 <td style="width: 15%" class="text-center">
-                                                    <!-- DETAIL -->
                                                     <a href="category-detail.php?id=<?= $category['id'] ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Detail</a>
-                                                    <!-- <a href="#category-form.php?id=<?= $category['id'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a> -->
-                                                    <!-- <a href="#category-delete.php?id=<?= $category['id'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a> -->
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
