@@ -12,7 +12,7 @@ define('DB_PASSWORD', '');
 define('DB_DATABASE', 'db_DTechCIS');
 
 // SITE URL
-define('SITE_URL', 'http://dtechcis.test/');
+define('SITE_URL', 'https://dtechcis.test/');
 
 // Whatsapp Token 
 define('WHATSAPP_TOKEN', 'Xc8SpRNriemeeJe-Kutk');

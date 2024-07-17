@@ -3,9 +3,12 @@
 <?php
 $categories = new Categories();
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $category = $categories->getCategoryById($id);
+if (isset($_GET['category_id']) && isset($_GET['category_sub_id'])) {
+    $category_id = $_GET['category_id'];
+    $category = $categories->getCategoryById($category_id);
+
+    $category_sub_id = $_GET['category_sub_id'];
+    $category_sub = $categories->getSubCategoryById($category_sub_id);
 }
 
 // CREATE TABLE IF NOT EXISTS `documents` (
@@ -22,6 +25,54 @@ if (isset($_GET['id'])) {
 //     FOREIGN KEY (`document_user_id`) REFERENCES `users`(`user_id`),
 //     FOREIGN KEY (`document_category_sub_id`) REFERENCES `categories_sub`(`category_sub_id`)
 // );
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $document_title = $_POST['document_title'];
+    $document_description = $_POST['document_description'];
+    $document_date = $_POST['document_date'];
+    $document_file = $_FILES['document_file'];
+
+    $document_file_name = upload_file($document_file, 'documents');
+
+    $dataDocument = [
+        'document_title' => $document_title,
+        'document_description' => $document_description,
+        'document_date' => $document_date,
+        'document_file' => $document_file_name,
+        'document_user_id' => $_SESSION['user_id'],
+        'document_category_sub_id' => $category_sub_id
+    ];
+
+    $categories->createDocument($dataDocument);
+
+    set_flash_message('Document added successfully.', 'success');
+    redirect('category-detail.php?id=' . $category_id);
+}
+
+function upload_file($file, $folder)
+{
+    $file_name = $file['name'];
+    $file_size = $file['size'];
+    $file_tmp = $file['tmp_name'];
+    $file_type = $file['type'];
+    $file_ext = strtolower(end(explode('.', $file_name)));
+
+    $extensions = ['jpeg', 'jpg', 'png', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+    if (in_array($file_ext, $extensions) === false) {
+        return set_flash_message('Extension not allowed, please choose a JPEG, JPG, PNG, PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX file.', 'danger');
+    }
+
+    if ($file_size > 2097152) {
+        set_flash_message('File size must be less than 2 MB.', 'danger');
+        redirect('category-document-form.php?category_id=' . $category_id . '&category_sub_id=' . $category_sub_id);
+    }
+
+    $new_file_name = uniqid() . '.' . $file_ext;
+    $upload_path = 'uploads/' . $folder . '/' . $new_file_name;
+    move_uploaded_file($file_tmp, $upload_path);
+
+    return $new_file_name;
+}
 ?>
 <div class="content-wrapper">
     <div class="content-header">
@@ -58,7 +109,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <div class="card-body">
                             <?= display_flash_message(); ?>
-                            <form action="" method="post">
+                            <form action="" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="document_title">Document Title</label>
                                     <input type="text" name="document_title" id="document_title" class="form-control" required>

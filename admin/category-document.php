@@ -52,7 +52,9 @@ if (isset($_GET['category_id']) && isset($_GET['category_sub_id'])) {
                                         <a class="dropdown-item" href="#">2019</a>
                                     </div>
                                 </div>
-                                <a href="category-document-form.php?id=<?= $category['category_id'] ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add Document</a>
+                                <a href="category-document-form.php?category_id=<?= $category['category_id'] ?>&category_sub_id=<?= $subCategory['category_sub_id'] ?>" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Add Document
+                                </a>
                             </div>
                         </div>
                         <div class="card-body">
