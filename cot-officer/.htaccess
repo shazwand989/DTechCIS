@@ -1,0 +1,6 @@
+# Custom Error Pages
+ErrorDocument 400 /cot-officer/400.php
+ErrorDocument 401 /cot-officer/401.php
+ErrorDocument 403 /cot-officer/403.php
+ErrorDocument 404 /cot-officer/404.php
+ErrorDocument 500 /cot-officer/500.php

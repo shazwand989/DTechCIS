@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             $target = '1116700813';
             // CREATE WHATSAPP MESSAGE TEMPLATE 
-            $message = 'Hello ' . $user['user_name'] . ', you have successfully logged in to ' . SITE_NAME . ' at ' . date('d F Y, h:i A') . '.';
+            $message = 'Hello ' . $user['user_name'] ?? $email['user_name'] . ', you have successfully logged in to ' . SITE_NAME . ' at ' . date('d F Y, h:i A') . '.';
             // SEND WHATSAPP MESSAGE
             $response = send_whatsapp($target, $message);
             if ($_SESSION['user']['user_role'] == 'admin') {

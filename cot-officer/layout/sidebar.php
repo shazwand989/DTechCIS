@@ -33,34 +33,14 @@
                          </p>
                      </a>
                  </li>
-                 <li class="nav-item has-treeview <?= $title == 'Users' ? 'menu-open' : '' ?>">
-                     <a href="#" class="nav-link <?= $title == 'Users' ? 'active' : '' ?>">
-                         <i class="nav-icon fas fa-user"></i>
+                 <!-- categories -->
+                 <li class="nav-item">
+                     <a href="category-list.php" class="nav-link <?= $title == "Categories" ? "active" : "" ?>">
+                         <i class="nav-icon fas fa-list"></i>
                          <p>
-                             Users
-                             <i class="right fas fa-angle-left"></i>
+                             Categories
                          </p>
                      </a>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="user-list.php?role=admin" class="nav-link <?= isset($_GET['role']) && $_GET['role'] == 'admin' ? 'active' : '' ?>">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Admin</p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="user-list.php?role=cot_officer" class="nav-link <?= isset($_GET['role']) && $_GET['role'] == 'cot_officer' ? 'active' : '' ?>">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>COT Officers</p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="user-list.php?role=pkt_management" class="nav-link <?= isset($_GET['role']) && $_GET['role'] == 'pkt_management' ? 'active' : '' ?>">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>PKT Management</p>
-                             </a>
-                         </li>
-                     </ul>
                  </li>
                  <!-- account -->
                  <li class="nav-item">
