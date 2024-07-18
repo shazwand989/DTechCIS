@@ -16,20 +16,6 @@ if (isset($_GET['document_id'])) {
     $document = $categories->getDocumentById($document_id);
 }
 
-// CREATE TABLE IF NOT EXISTS `documents` (
-//     `document_id` int(11) NOT NULL AUTO_INCREMENT,
-//     `document_title` varchar(255) NOT NULL,
-//     `document_description` text NOT NULL,
-//     `document_date` date NOT NULL,
-//     `document_file` varchar(255) NOT NULL,
-//     `document_user_id` int(11) NOT NULL,
-//     `document_category_sub_id` int(11) NOT NULL,
-//     `document_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-//     `document_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-//     PRIMARY KEY (`document_id`),
-//     FOREIGN KEY (`document_user_id`) REFERENCES `users`(`user_id`),
-//     FOREIGN KEY (`document_category_sub_id`) REFERENCES `categories_sub`(`category_sub_id`)
-// );
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $document_title = $_POST['document_title'];
