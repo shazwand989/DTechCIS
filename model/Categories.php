@@ -47,8 +47,16 @@ class Categories extends Database
     }
 
     // Method to get all sub categories from the database.
-    public function getSubCategories()
+    public function getSubCategories($id = null)
     {
+        if ($id) {
+            $conditions = "category_sub_category_id = :category_sub_category_id"; // SQL conditions to find sub categories by category ID.
+            $sql = "SELECT * FROM categories_sub WHERE $conditions"; // SQL query to select sub categories by category ID.
+            $stmt = $this->conn->prepare($sql); // Prepares the SQL statement.
+            $stmt->bindParam(':category_sub_category_id', $id); // Binds the category ID parameter.
+            $stmt->execute(); // Executes the SQL statement.
+            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetches the sub categories data as an associative array.
+        }
         return $this->read('categories_sub'); // Fetches all records from the 'categories_sub' table.
     }
 
