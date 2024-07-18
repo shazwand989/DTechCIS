@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <?= $title ?> Detail - <?= $category['category_name'] ?>
                             </h4>
                             <div class="card-tools">
-                                <a href="category-document.php?category_id=<?= $category['category_id'] ?>&category_sub_id=<?= $category_sub['category_sub_id'] ?>" class="btn btn-secondary">
+                                <a href="category-document.php?category_id=<?= $category['category_id'] ?>&category_sub_id=<?= $category_sub['category_sub_id'] ?>&year=<?= date('Y') ?>" class="btn btn-primary">
                                     <i class="fas fa-arrow-left"></i> Back
                                 </a>
                             </div>
