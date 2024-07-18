@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 <td><?= $key + 1 ?></td>
                                                 <td><?= $subCategory['category_sub_name'] ?></td>
                                                 <td>
-                                                    <a href="category-document.php?category_id=<?= $category['category_id'] ?>&category_sub_id=<?= $subCategory['category_sub_id'] ?>" class="btn btn-sm btn-info">
+                                                    <a href="category-document.php?category_id=<?= $category['category_id'] ?>&category_sub_id=<?= $subCategory['category_sub_id'] ?>&year=<?= date('Y') ?>" class="btn btn-sm btn-info">
                                                         <i class="fas fa-eye"></i> View
                                                     </a>
                                                     <button type="button" class="btn btn-sm btn-primary" onclick="categorySubEdit(<?= $subCategory['category_sub_id'] ?>, '<?= $subCategory['category_sub_name'] ?>')">

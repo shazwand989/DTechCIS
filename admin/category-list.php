@@ -50,7 +50,6 @@
                                                 <td><?= $key + 1 ?></td>
                                                 <td><?= $category['category_name'] ?></td>
                                                 <td style="width: 15%" class="text-center">
-                                                    <!-- DETAIL -->
                                                     <a href="category-detail.php?id=<?= $category['category_id'] ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Detail</a>
                                                 </td>
                                             </tr>

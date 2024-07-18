@@ -155,7 +155,7 @@ class Categories extends Database
     // Method to delete a document from the database.
     public function deleteDocument($documentId)
     {
-        $conditions = "document_id = :document_id"; // SQL conditions to find a document by ID.
-        return $this->delete('documents', $conditions, $documentId); // Deletes the document data from the 'documents' table.
+        $conditions = "document_id = " . $documentId; // SQL conditions to find a document by ID.
+        return $this->delete('documents', $conditions); // Deletes the document data from the 'documents' table.
     }
 }

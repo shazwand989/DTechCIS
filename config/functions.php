@@ -184,3 +184,45 @@ function send_whatsapp($target, $message, $countryCode = '60')
     }
     return $response;
 }
+
+function upload_file($file, $directory, $filSize = 2097152)
+{
+    // check if directory not exists
+    if (!file_exists($directory)) {
+        mkdir($directory, 0777, true);
+    }
+
+    $file_name = $file['name'];
+    $file_size = $file['size'];
+    $file_tmp = $file['tmp_name'];
+
+    $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
+
+    $valid_extensions = ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx', 'xls', 'xlsx'];
+
+    if (!in_array($file_extension, $valid_extensions)) {
+        $data = [
+            'status' => 'error',
+            'message' => 'Invalid file extension. Only jpg, jpeg, png, pdf, doc, docx, xls, xlsx are allowed.'
+        ];
+    }
+
+    if ($file_size > $filSize) {
+        $data = [
+            'status' => 'error',
+            'message' => 'File size is too large. File size should be less than' . intval($filSize / 1024) . 'KB'
+        ];
+    }
+
+    $file_name = time() . '_' . rand(1000, 9999) . '.' . $file_extension;
+
+    move_uploaded_file($file_tmp, $directory . '/' . $file_name);
+
+    $data = [
+        'status' => 'success',
+        'message' => 'File uploaded successfully.',
+        'file_name' => $file_name
+    ];
+
+    return $data;
+}
