@@ -1,0 +1,25 @@
+body {
+    background-color: #f8f9fa;
+    padding-top: 50px;
+}
+
+.container {
+    max-width: 450px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.verification-code {
+    display: flex;
+    justify-content: space-between;
+}
+
+.verification-code input {
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-right: 5px;
+}

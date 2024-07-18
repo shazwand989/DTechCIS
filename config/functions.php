@@ -231,3 +231,14 @@ function upload_file($file, $directory, $filSize = 2097152)
 
     return $data;
 }
+// Generate a secure TAC using a random number
+function generateSecureTAC($length = 6)
+{
+    $characters = '0123456789';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
