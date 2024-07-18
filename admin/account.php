@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // If there are no errors, update the user's password
         if (empty($errors)) {
             $data = [
-                'user_password' => $_POST['new_password'],
+                'user_password' => password_hash($_POST['new_password'], PASSWORD_DEFAULT),
             ];
             $users->updateUser(user()['user_id'], $data);
             set_flash_message('Password updated successfully', 'success');

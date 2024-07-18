@@ -87,20 +87,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // If there are no errors, proceed with user creation/updation
     if (empty($errors)) {
-        $data = [
-            'user_name' => $user_name,
-            'user_email' => $email,
-            'user_phone' => $phone,
-            'user_address' => $address,
-            'user_city' => $city,
-            'user_state' => $state,
-            'user_postcode' => $postcode,
-            'user_role' => $role
-        ];
+
+        $data['user_name'] = $user_name;
+        $data['user_email'] = $email;
+        $data['user_phone'] = $phone;
+        $data['user_address'] = $address;
+        $data['user_city'] = $city;
+        $data['user_state'] = $state;
+        $data['user_postcode'] = $postcode;
+        $data['user_role'] = $role;
+
 
         // Include the password if it was provided
-        if ($password) {
+        if (!empty($password)) {
             $data['user_password'] = password_hash($password, PASSWORD_DEFAULT);
+        } else {
+            if (isset($_GET['id'])) {
+                $data['user_password'] = $user['user_password'];
+            }
         }
 
         // Handle profile picture upload
@@ -119,7 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_GET['id'])) {
             $result = $users->updateUser($_GET['id'], $data);
         } else {
-            $data['user_password'] = password_hash('password', PASSWORD_DEFAULT); // Set default password 'password
+            if ($password == '') {
+                $data['user_password'] = password_hash('password', PASSWORD_DEFAULT);
+            }
             $result = $users->createUser($data);
         }
 

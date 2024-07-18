@@ -80,9 +80,6 @@ class Users extends Database
     // Method to update user information.
     public function updateUser($userId, $data)
     {
-        if (isset($data['user_password'])) {
-            $data['user_password'] = password_hash($data['user_password'], PASSWORD_DEFAULT); // Hashes the new password if provided.
-        }
         $conditions = "user_id = :user_id"; // SQL condition to find the user by ID.
         $data['user_id'] = $userId; // Adds the user ID to the data array.
         return $this->update('users', $data, $conditions); // Updates the user data in the 'users' table.
