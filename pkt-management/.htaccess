@@ -1,0 +1,6 @@
+# Custom Error Pages
+ErrorDocument 400 /pkt-management/400.php
+ErrorDocument 401 /pkt-management/401.php
+ErrorDocument 403 /pkt-management/403.php
+ErrorDocument 404 /pkt-management/404.php
+ErrorDocument 500 /pkt-management/500.php
