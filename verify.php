@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)) {
         if (isset($_POST['token'])) {
             if ($_POST['token'] == $_SESSION['TAC']) {
-                set_flash_message('Phone number verified successfully.', 'success');
                 $_SESSION['izwand27'] = true;
                 redirect('login.php');
             } else {
