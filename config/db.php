@@ -28,6 +28,5 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-
 include_once 'functions.php';
 include_once 'model.php';
