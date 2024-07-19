@@ -106,9 +106,9 @@ if (isset($_GET['category_id']) && isset($_GET['category_sub_id'])) {
                                                         <a href="<?= base_url('assets/dist/documents/' . $document['document_file']) ?>" target="_blank" class="btn btn-sm btn-info">
                                                             <i class="fas fa-file"></i> File
                                                         </a>
-                                                        <a href="category-document-form.php?category_id=<?= $category['category_id'] ?>&category_sub_id=<?= $subCategory['category_sub_id'] ?>&document_id=<?= $document['document_id'] ?>" class="btn btn-sm btn-warning">
+                                                        <!-- <a href="category-document-form.php?category_id=<?= $category['category_id'] ?>&category_sub_id=<?= $subCategory['category_sub_id'] ?>&document_id=<?= $document['document_id'] ?>" class="btn btn-sm btn-warning">
                                                             <i class="fas fa-edit"></i> Edit
-                                                        </a>
+                                                        </a> -->
                                                     </td>
                                                 </tr>
                                                 <?php $downloadZip[] = [

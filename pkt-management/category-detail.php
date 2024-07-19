@@ -92,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                     <a href="category-document.php?category_id=<?= $category['category_id'] ?>&category_sub_id=<?= $subCategory['category_sub_id'] ?>&year=<?= date('Y') ?>" class="btn btn-sm btn-info">
                                                         <i class="fas fa-eye"></i> View
                                                     </a>
-                                                    <button type="button" class="btn btn-sm btn-primary" onclick="categorySubEdit(<?= $subCategory['category_sub_id'] ?>, '<?= $subCategory['category_sub_name'] ?>')">
+                                                    <!-- <button type="button" class="btn btn-sm btn-primary" onclick="categorySubEdit(<?= $subCategory['category_sub_id'] ?>, '<?= $subCategory['category_sub_name'] ?>')">
                                                         <i class="fas fa-edit"></i> Edit
-                                                    </button>
+                                                    </button> -->
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
