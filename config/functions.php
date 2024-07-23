@@ -16,9 +16,9 @@ function redirect($url)
 function auth($role = null)
 {
 
-    if (!isset($_SESSION['izwand27'])) {
-        redirect(base_url('verify.php'));
-    }
+    // if (!isset($_SESSION['izwand27'])) {
+    //     redirect(base_url('verify.php'));
+    // }
 
     if (!isset($_SESSION['user'])) { // Checks if the user is not logged in.
         set_flash_message('You must be logged in to view that page', 'danger'); // Sets a flash message to inform the user.
