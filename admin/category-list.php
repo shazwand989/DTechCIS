@@ -30,7 +30,7 @@
                                 <?= $title ?>
                             </h4>
                             <div class="card-tools">
-                                <!-- <a href="#category-form.php" class="btn btn-primary"><i class="fas fa-plus"></i> Add Category</a> -->
+                                <a href="category-form.php" class="btn btn-primary"><i class="fas fa-plus"></i> Add Category</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -51,6 +51,8 @@
                                                 <td><?= $category['category_name'] ?></td>
                                                 <td style="width: 15%" class="text-center">
                                                     <a href="category-detail.php?id=<?= $category['category_id'] ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Detail</a>
+                                                    <a href="category-form.php?id=<?= $category['category_id'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteCategory(<?= $category['category_id'] ?>)"><i class="fas fa-trash"></i> Delete</button>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -65,3 +67,43 @@
     </section>
 </div>
 <?php include_once "layout/footer.php"; ?>
+<script>
+    function deleteCategory(category_id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to delete this category!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'category-delete.php',
+                    type: 'POST',
+                    data: {
+                        category_id: category_id
+                    },
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            Swal.fire(
+                                'Deleted!',
+                                response.message,
+                                'success'
+                            ).then((result) => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>

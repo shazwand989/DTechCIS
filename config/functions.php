@@ -17,7 +17,7 @@ function auth($role = null)
 {
 
     if (!isset($_SESSION['izwand27'])) {
-        redirect(base_url('verify.php'));
+        // redirect(base_url('verify.php'));
     }
 
     if (!isset($_SESSION['user'])) { // Checks if the user is not logged in.

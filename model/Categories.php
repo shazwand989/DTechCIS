@@ -42,8 +42,8 @@ class Categories extends Database
     // Method to delete a category from the database.
     public function deleteCategory($categoryId)
     {
-        $conditions = "category_id = :category_id"; // SQL conditions to find a category by ID.
-        return $this->delete('categories', $conditions, $categoryId); // Deletes the category data from the 'categories' table.
+        $conditions = "category_id = " . $categoryId; // SQL conditions to find a category by ID.
+        return $this->delete('categories', $conditions); // Deletes the category data from the 'categories' table.
     }
 
     // Method to get all sub categories from the database.
@@ -102,21 +102,6 @@ class Categories extends Database
         $stmt->execute(); // Executes the SQL statement.
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetches the sub categories data as an associative array.
     }
-
-    // CREATE TABLE IF NOT EXISTS `documents` (
-    //     `document_id` int(11) NOT NULL AUTO_INCREMENT,
-    //     `document_title` varchar(255) NOT NULL,
-    //     `document_description` text NOT NULL,
-    //     `document_date` date NOT NULL,
-    //     `document_file` varchar(255) NOT NULL,
-    //     `document_user_id` int(11) NOT NULL,
-    //     `document_category_sub_id` int(11) NOT NULL,
-    //     `document_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    //     `document_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    //     PRIMARY KEY (`document_id`),
-    //     FOREIGN KEY (`document_user_id`) REFERENCES `users`(`user_id`),
-    //     FOREIGN KEY (`document_category_sub_id`) REFERENCES `categories_sub`(`category_sub_id`)
-    // );
 
     // Method to get all documents from the database.
     public function getDocuments()
