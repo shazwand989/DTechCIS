@@ -95,9 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                     <button type="button" class="btn btn-sm btn-primary" onclick="categorySubEdit(<?= $subCategory['category_sub_id'] ?>, '<?= $subCategory['category_sub_name'] ?>')">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </button>
-                                                    <a href="category-delete.php?id=<?= $subCategory['category_sub_id'] ?>" class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-trash"></i> Delete
-                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="deleteCategorySub(<?= $subCategory['category_sub_id'] ?>)">
+                                                        <i class="fas fa-trash-alt"></i> Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

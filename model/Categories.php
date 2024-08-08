@@ -89,7 +89,11 @@ class Categories extends Database
     public function deleteSubCategory($subCategoryId)
     {
         $conditions = "category_sub_id = :category_sub_id"; // SQL conditions to find a sub category by ID.
-        return $this->delete('categories_sub', $conditions, $subCategoryId); // Deletes the sub category data from the 'categories_sub' table.
+        $sql = "DELETE FROM categories_sub WHERE $conditions"; // SQL query to delete the sub category.
+        $stmt = $this->conn->prepare($sql); // Prepares the SQL statement.
+        $stmt->bindParam(':category_sub_id', $subCategoryId); // Binds the sub category ID parameter.
+        $stmt->execute(); // Executes the SQL statement.
+        return true; // Returns true if the sub category was deleted.
     }
 
     // Method to get all sub categories by category ID.

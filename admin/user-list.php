@@ -85,7 +85,7 @@ if (isset($_GET['role'])) { // Check if the role parameter is set in the URL
                                                 <td><?= date('d F Y H:i', strtotime($user['user_created_at'])) ?></td>
                                                 <td>
                                                     <a href="user-form.php?role=<?= $role ?>&id=<?= $user['user_id'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteData('users', <?= $user['user_id'] ?>)"><i class="fas fa-trash-alt"></i> Delete</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(<?= $user['user_id'] ?>)"><i class="fas fa-trash-alt"></i> Delete</button>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

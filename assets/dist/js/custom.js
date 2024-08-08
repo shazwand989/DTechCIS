@@ -79,3 +79,105 @@ function categorySubEdit(id, name) {
 function goBack() {
     window.history.back();
 }
+
+function deleteUser(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this user!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        // Check if the user confirmed the deletion
+        if (result.isConfirmed) {
+            // ajax call to delete user
+            $.ajax({
+                type: 'POST',
+                url: 'user-delete.php',
+                data: { id: id },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == 'success') {
+                        swal_alert('Success', response.message, 'success', 'user-list.php?role=' + response.role);
+                    } else {
+                        swal_alert('Error', response.message, 'error');
+                    }
+                }
+            });
+        }
+    }
+    );
+}
+
+function deleteCategorySub(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this category!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        // Check if the user confirmed the deletion
+        if (result.isConfirmed) {
+            // ajax call to delete user
+            $.ajax({
+                type: 'POST',
+                url: 'category-sub-delete.php',
+                data: { id: id },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == 'success') {
+                        swal_alert('Success', response.message, 'success', 'category-detail.php?id=' + response.category_id);
+                    } else {
+                        swal_alert('Error', response.message, 'error');
+                    }
+                }
+            });
+        }
+    }
+    );
+}
+
+function deleteDocument(documentId) {
+    // sweetalert
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to delete this document?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // ajax
+            $.ajax({
+                url: 'category-document-delete.php',
+                type: 'POST',
+                data: {
+                    document_id: documentId
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == 'success') {
+                        Swal.fire(
+                            'Deleted!',
+                            'Document has been deleted.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Failed!',
+                            'Failed to delete document.',
+                            'error'
+                        );
+                    }
+                }
+            });
+        }
+    });
+}
