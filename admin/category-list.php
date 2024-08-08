@@ -41,7 +41,7 @@
                                         <tr>
                                             <th style="width: 5%">#</th>
                                             <th>Category Name</th>
-                                            <th>Action</th>
+                                            <th style="width: 20%" class="text-center">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
