@@ -15,6 +15,7 @@ $(function () {
         "responsive": true,
     });
 });
+
 function logout() {
     Swal.fire({
         title: 'Are you sure?',
@@ -108,6 +109,45 @@ function deleteUser(id) {
         }
     }
     );
+}
+
+function deleteCategory(category_id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to delete this category!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: 'category-delete.php',
+                type: 'POST',
+                data: {
+                    category_id: category_id
+                },
+                success: function (response) {
+                    if (response.status == 'success') {
+                        Swal.fire(
+                            'Deleted!',
+                            response.message,
+                            'success'
+                        ).then((result) => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            response.message,
+                            'error'
+                        );
+                    }
+                }
+            });
+        }
+    });
 }
 
 function deleteCategorySub(id) {

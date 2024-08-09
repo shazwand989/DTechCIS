@@ -101,3 +101,21 @@ CREATE TABLE IF NOT EXISTS `documents` (
     FOREIGN KEY (`document_user_id`) REFERENCES `users`(`user_id`),
     FOREIGN KEY (`document_category_sub_id`) REFERENCES `categories_sub`(`category_sub_id`)
 );
+
+CREATE TABLE IF NOT EXISTS `collaborations` (
+    `collaboration_id` int(11) NOT NULL AUTO_INCREMENT,
+    `collaboration_project_title` varchar(255) NOT NULL,
+    `collaboration_collaborating_partners` text NOT NULL,
+    `collaboration_scope` varchar(255) NOT NULL,
+    `collaboration_start_date` date NOT NULL,
+    `collaboration_end_date` date NOT NULL,
+    `collaboration_status` varchar(255) NOT NULL,
+    `collaboration_benefit_outcome_impact` text NOT NULL,
+    `collaboration_issues_challenges_lesson_learned` text NOT NULL,
+    `collaboration_income_generated` decimal(10, 2) NOT NULL,
+    `collaboration_user_id` int(11) NULL,
+    `collaboration_created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `collaboration_updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`collaboration_id`),
+    FOREIGN KEY (`collaboration_user_id`) REFERENCES `users`(`user_id`)
+);
